@@ -32,15 +32,9 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: |
-            package-lock.json
-            ./client/package-lock.json
+          cache-dependency-path: package-lock.json
 
-      - name: Install root dependencies
-        run: npm ci
-
-      - name: Install client dependencies
-        working-directory: ./client
+      - name: Install dependencies
         run: npm ci
 
       - name: Debug env
@@ -48,7 +42,6 @@ jobs:
           echo "VITE_WEB3FORMS_ACCESS_KEY length: ${#VITE_WEB3FORMS_ACCESS_KEY}"
 
       - name: Write Vite env file
-        working-directory: ./client
         run: |
           printf "VITE_WEB3FORMS_ACCESS_KEY=%s\n" "$VITE_WEB3FORMS_ACCESS_KEY" > .env.production
           printf "VITE_APP_URL=%s\n" "$VITE_APP_URL" >> .env.production
@@ -57,11 +50,10 @@ jobs:
           cat .env.production
 
       - name: Build
-        working-directory: ./client
         run: npm run build
 
       - name: Create SPA fallback (404 -> index)
-        run: cp ./client/dist/index.html ./client/dist/404.html
+        run: cp ./dist/index.html ./dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -69,7 +61,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './client/dist'
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
