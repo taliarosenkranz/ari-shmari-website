@@ -50,6 +50,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy CNAME to dist
+        run: cp CNAME ./dist/CNAME
+
       - name: Create SPA fallback (404 -> index)
         run: cp ./dist/index.html ./dist/404.html
 
