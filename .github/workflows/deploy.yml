@@ -22,7 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
-      VITE_APP_URL: https://ari-shmari.com
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,7 +43,6 @@ jobs:
       - name: Write Vite env file
         run: |
           printf "VITE_WEB3FORMS_ACCESS_KEY=%s\n" "$VITE_WEB3FORMS_ACCESS_KEY" > .env.production
-          printf "VITE_APP_URL=%s\n" "$VITE_APP_URL" >> .env.production
           echo ".env.production written"
           echo "Content of .env.production:"
           cat .env.production

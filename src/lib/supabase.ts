@@ -2,10 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 
 // Supabase configuration - matches Python backend setup
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://zadluwuwmvlylfnxdmvf.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'dummy-key-for-compatibility';
 
-if (!supabaseAnonKey) {
-  console.error('Missing VITE_SUPABASE_ANON_KEY environment variable');
+if (!import.meta.env.VITE_SUPABASE_ANON_KEY) {
+  console.warn('Supabase not configured - authentication features will be disabled');
 }
 
 // Initialize Supabase client
