@@ -22,9 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
-      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-      VITE_APP_URL: https://taliarosenkranz.github.io/Hello.Ari.Shmari
+      VITE_APP_URL: https://ari-shmari.com
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,16 +46,11 @@ jobs:
       - name: Debug env
         run: |
           echo "VITE_WEB3FORMS_ACCESS_KEY length: ${#VITE_WEB3FORMS_ACCESS_KEY}"
-          echo "VITE_SUPABASE_URL length: ${#VITE_SUPABASE_URL}"
-          echo "VITE_SUPABASE_ANON_KEY length: ${#VITE_SUPABASE_ANON_KEY}"
-          echo "VITE_SUPABASE_URL value: $VITE_SUPABASE_URL"
 
       - name: Write Vite env file
         working-directory: ./client
         run: |
           printf "VITE_WEB3FORMS_ACCESS_KEY=%s\n" "$VITE_WEB3FORMS_ACCESS_KEY" > .env.production
-          printf "VITE_SUPABASE_URL=%s\n" "$VITE_SUPABASE_URL" >> .env.production
-          printf "VITE_SUPABASE_ANON_KEY=%s\n" "$VITE_SUPABASE_ANON_KEY" >> .env.production
           printf "VITE_APP_URL=%s\n" "$VITE_APP_URL" >> .env.production
           echo ".env.production written"
           echo "Content of .env.production:"
